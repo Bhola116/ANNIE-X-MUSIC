@@ -14,7 +14,7 @@ async def logo(app, msg: Message):
     if len(msg.command) == 1:
        return await msg.reply_text("Usage:\n\n /logo jarvis")
     logo_name = msg.text.split(" ", 1)[1]
-    API = f"https://api.sdbots.tech/logohq?text={logo_name}"
+    API = f"https://i.waifu.pics/Tj6Wzwo.png={logo_name}"
     req = requests.get(API).url
     await msg.reply_photo(
         photo=f"{req}")
