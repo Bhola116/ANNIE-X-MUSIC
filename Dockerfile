@@ -1,12 +1,21 @@
-FROM nikolaik/python-nodejs:python3.10-nodejs19
+# Python Based Docker
+FROM python:latest
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Installing Packages
+RUN apt update && apt upgrade -y
+RUN apt install git curl python3-pip ffmpeg -y
 
-COPY . /app/
-WORKDIR /app/
+# Updating Pip Packages
+RUN pip3 install -U pip
 
-RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
-CMD bash start
+# Copying Requirements
+COPY requirements.txt /requirements.txt
+
+# Installing Requirements
+RUN cd /
+RUN pip3 install -U -r requirements.txt
+RUN mkdir /MissPerfectURL
+WORKDIR /MissPerfectURL
+
+# Running MessageSearchBot
+CMD ["python", "bot.py"]
